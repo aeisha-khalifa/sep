@@ -1,4 +1,5 @@
 from summarize_module.summarizer import Summarizer
+from technical_module.ta_module import TechnicalModule
 import os, json
 import numpy as np
 import pandas as pd
@@ -10,7 +11,9 @@ class DataLoader:
         self.price_dir = args.price_dir
         self.tweet_dir = args.tweet_dir
         self.seq_len = args.seq_len
+        self.use_ta = getattr(args, 'use_ta', False)
         self.summarizer = Summarizer()
+        self.ta_module = TechnicalModule() if self.use_ta else None
 
 
     def daterange(self, start_date, end_date):
@@ -74,6 +77,11 @@ class DataLoader:
 
                     if summary and summary is not None and summary != "" and self.summarizer.is_informative(summary):
                         summary_all = summary_all + seq_date_str + "\n" + summary + "\n\n"
+
+                if self.ta_module:
+                    ta_summary = self.ta_module.get_ta_summary(ticker, end_date_str)
+                    if ta_summary:
+                        summary_all = f"Technical Indicators ({end_date_str}):\n{ta_summary}\n\n" + summary_all
 
                 if summary_all != "":
                     data = pd.concat([data, pd.DataFrame([{'ticker': ticker, 'summary': summary_all.rstrip(), 'target': target}])], ignore_index=True)

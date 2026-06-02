@@ -69,6 +69,12 @@ class Exp_Model:
             with open(comparison_data_path, 'w') as f:
                 f.write(json.dumps(comparison_data))
 
+        # Free GPU memory before loading reward model
+        import gc
+        import torch
+        gc.collect()
+        torch.cuda.empty_cache()
+
         # Train reward model
         train_reward_model(self.args)
         merge_peft_adapter(model_name=self.args.reward_adapter, output_name=self.args.reward_model_name)

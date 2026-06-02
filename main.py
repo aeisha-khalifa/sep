@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from exp.exp_model import Exp_Model
 import argparse
 import torch
@@ -15,6 +18,7 @@ parser = argparse.ArgumentParser(description='generating')
 parser.add_argument("--price_dir", type=str, default="data/price/preprocessed/")
 parser.add_argument("--tweet_dir", type=str, default="data/tweet/raw/")
 parser.add_argument("--seq_len", type=int, default=5)
+parser.add_argument("--use_ta", action="store_true", default=False, help="Enable technical indicators module")
 
 # supervised finetuning
 parser.add_argument("--wandb", action="store_true", default=False)

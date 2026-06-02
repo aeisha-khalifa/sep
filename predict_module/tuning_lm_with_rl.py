@@ -151,14 +151,15 @@ def tuning_lm_with_rl(args):
         task_type="CAUSAL_LM",
     )
 
+    import gc, torch as _torch
+    gc.collect()
+    _torch.cuda.empty_cache()
+
     model = AutoModelForCausalLMWithValueHead.from_pretrained(
         config.model_name,
         load_in_4bit=True,
-        # device_map={"": current_device},
-        device_map="auto",
+        device_map={"": current_device},
         peft_config=lora_config,
-        # layer_norm_names=[],
-        # torch_dtype=torch.float16,
         quantization_config=BitsAndBytesConfig(llm_int8_enable_fp32_cpu_offload=True)
     )
     print("finetune model: ", config.model_name, type(model))

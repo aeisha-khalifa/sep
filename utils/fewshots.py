@@ -158,3 +158,53 @@ Price Movement: Negative
 
 Explanation: Apple reported disappointing Q2 2016 earnings, missing both profit and revenue estimates. The company's revenue and adjusted earnings per share fell short of expectations, marking the first quarterly revenue decline in 13 years. iPhone sales, a cornerstone of Apple's business, experienced their first-ever decline since the product's debut in 2007. The weaker-than-expected guidance for the next quarter further dampened investor Price Movement. The CEO's acknowledgment of strong macroeconomic headwinds, particularly in China, indicated external challenges affecting the company's performance. Despite announcing plans to increase dividends and return more to shareholders, the stock price plunged around 4.8% in after-hours trading following the earnings report. Overall, these factors collectively indicate a negative Price Movement surrounding AAPL stock due to its underwhelming financial performance and market outlook.
 """
+
+
+PREDICT_EXAMPLES_WITH_INDICATORS = """Facts:
+2016-07-26
+Apple reported Q3 2016 earnings: Revenue of $42.4 billion, beating expectations. They sold 40.4 million iPhones, 9.9 million iPads, and 4.2 million Macs during that quarter.
+Apple's earnings beat expectations, causing the stock to rise by almost 5% in after-hours trading.
+Apple had $231.5 billion in cash reserves, enough to potentially acquire companies like Uber, Tesla, Twitter, Airbnb, Netflix, Snapchat, and SpaceX and still have billions left.
+Apple's China sales were down around 29% sequentially and 33% YoY.
+Despite declining unit sales, Apple's revenue was boosted by more expensive iPad Pro models.
+Apple Pay accounted for 3/4 of contactless payments in the US.
+Apple's services business (App Store, Apple Music, etc.) was projected to be the size of a Fortune 500 company in the next year.
+Apple was reported to be working on a car project called Project Titan, with Bob Mansfield leading it.
+The Apple Pencil was granted a patent to work with a Mac's trackpad.
+Apple faced declining iPhone sales, but the company focused on promoting apps and services.
+The stock price experienced fluctuations after the earnings report, with significant after-hours gains.
+Apple's market weight rating was reiterated by Wells Fargo, with a target price of $120.00.
+
+Technical Context (as of 2016-07-26):
+- Price Balance (HLC3): close near intraday average -- neutral pressure
+- Volume Flow (OBV): rising -- buyers driving volume, accumulation signal
+- Trend (TEMA-9): price above moving average -- bullish momentum
+- Volatility (BB): price within bands at 72% of range -- upper half, mild positive bias
+
+Price Movement: Positive
+
+Explanation: Apple reported strong Q3 2016 earnings, surpassing revenue expectations and delivering robust sales figures across its product lines. The technical indicators reinforced this positive sentiment: rising OBV confirmed strong buying volume, price trading above its TEMA trend line signalled bullish momentum, and the Bollinger Band position indicated the stock was in the upper half of its normal range. The combination of strong fundamentals and supportive price action signals points to a Positive price movement.
+
+Facts:
+2016-04-26
+Apple reported its Q2 2016 earnings, missing both profit and revenue estimates.
+Apple's revenue for the quarter was $50.56 billion, falling short of the estimated $52 billion.
+The company's adjusted earnings per share (EPS) was $1.90, lower than the expected $2.00.
+This marks the first time in 13 years that Apple experienced a quarterly decline in revenue.
+iPhone sales experienced a decline for the first time since its debut in 2007.
+The company's guidance for the next quarter indicates expected sales of $41 billion to $43 billion.
+Apple's dividend yield increased to 2.3%.
+CEO Tim Cook attributed the challenges to strong macroeconomic headwinds, especially in China.
+Despite the earnings miss, Apple announced plans to raise its dividend and return $50 billion more to shareholders.
+Apple's stock price experienced a decline of around 4.8% in after-hours trading following the earnings report.
+
+Technical Context (as of 2016-04-26):
+- Price Balance (HLC3): average of high/low/close is 1.20% below close -- intraday selling pressure
+- Volume Flow (OBV): falling -- sellers driving volume, distribution signal
+- Trend (TEMA-9): price below moving average -- bearish momentum
+- Volatility (BB): price at or below lower Bollinger Band -- statistically extreme negative move, potential reversal
+
+Price Movement: Negative
+
+Explanation: Apple reported disappointing Q2 2016 earnings, missing both profit and revenue estimates, marking the first quarterly revenue decline in 13 years. The technical indicators aligned with this negative fundamental picture: falling OBV confirmed distribution selling pressure, price trading below its TEMA signalled bearish momentum, and the price touching the lower Bollinger Band indicated a statistically extreme downward move. The convergence of weak fundamentals and bearish technical signals collectively indicate a Negative price movement surrounding AAPL stock.
+"""

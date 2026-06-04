@@ -43,10 +43,15 @@ def save_agents(agents, dir: str):
         joblib.dump(agent, os.path.join(dir, f'{i}.joblib'))
 
 def save_results(agents, dir: str):
-    os.makedirs(dir, exist_ok=True)
+    # dir is a path prefix like "results/condition_A_" — create only the parent folder
+    parent = os.path.dirname(dir)
+    if parent:
+        os.makedirs(parent, exist_ok=True)
     results = pd.DataFrame()
     for agent in agents:
         results = pd.concat([results, pd.DataFrame([{
+                                        'Ticker': agent.ticker,
+                                        'Date': getattr(agent, 'date', ''),
                                         'Prompt': remove_fewshot(agent._build_agent_prompt()),
                                         'Response': agent.scratchpad.split('Price Movement: ')[-1],
                                         'Target': agent.target

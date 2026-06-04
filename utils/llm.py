@@ -10,7 +10,7 @@ import torch
 
 class OpenAILLM:
     def __init__(self):
-        self.model = "gpt-3.5-turbo-16k"
+        self.model = "gpt-3.5-turbo"
 
     @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
     def __call__(self, prompt):

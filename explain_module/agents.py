@@ -1,7 +1,7 @@
 from typing import List, Union, Literal
 from utils.llm import OpenAILLM, NShotLLM #, FastChatLLM
 from utils.prompts import REFLECT_INSTRUCTION, PREDICT_INSTRUCTION, PREDICT_REFLECT_INSTRUCTION, REFLECTION_HEADER
-from utils.fewshots import PREDICT_EXAMPLES
+from utils.fewshots import PREDICT_EXAMPLES, PREDICT_EXAMPLES_WITH_INDICATORS
 
 
 class PredictAgent:
@@ -18,7 +18,8 @@ class PredictAgent:
         self.prediction = ''
 
         self.predict_prompt = PREDICT_INSTRUCTION
-        self.predict_examples = PREDICT_EXAMPLES
+        has_indicators = "Technical Context" in summary
+        self.predict_examples = PREDICT_EXAMPLES_WITH_INDICATORS if has_indicators else PREDICT_EXAMPLES
         self.llm = predict_llm
 
         self.__reset_agent()
@@ -33,7 +34,8 @@ class PredictAgent:
 
         self.scratchpad += self.prompt_agent()
         response = self.scratchpad.split('Price Movement: ')[-1]
-        self.prediction = response.split()[0]
+        first_word = response.split()[0].strip('.,;:!?') if response.split() else ''
+        self.prediction = first_word
         print(response, end="\n\n\n\n")
 
         self.finished = True

@@ -1,0 +1,32 @@
+# Environment & secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+
+# Large data files — regenerate with fetch_prices.py
+data/ohlcv/
+
+# Summary caches — regenerate by running experiment
+data/summary_cache*.pkl
+
+# Model checkpoints
+saved_models/
+
+# Logs
+logs/
+nohup.out
+
+# Results — too large, regenerate by running experiment
+results/
+
+# IDE
+.vscode/
+.idea/

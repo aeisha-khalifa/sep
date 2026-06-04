@@ -9,7 +9,7 @@ class Summarizer:
         self.summarize_prompt = SUMMARIZE_INSTRUCTION
         self.summarize_examples = SUMMARIZE_EXAMPLES
         self.llm = OpenAILLM()
-        self.enc = tiktoken.encoding_for_model("gpt-3.5-turbo-16k")
+        self.enc = tiktoken.encoding_for_model("gpt-3.5-turbo")
 
     def get_summary(self, ticker, tweets):
         summary = None

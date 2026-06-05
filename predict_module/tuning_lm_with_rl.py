@@ -47,7 +47,7 @@ def tuning_lm_with_rl(args):
 
     # train_dataset = load_dataset("lvwerra/stack-exchange-paired", data_dir="data/rl", split="train")
     # train_dataset = train_dataset.select(range(100000))
-    train_dataset = load_dataset(dataset_name, split="train")
+    train_dataset = load_dataset("json", data_files=dataset_name, split="train")
     # train_dataset = train_dataset.select(range(100))
     # We then define the arguments to pass to the sentiment analysis pipeline.
     # We set `return_all_scores` to True to get the sentiment score for each token.

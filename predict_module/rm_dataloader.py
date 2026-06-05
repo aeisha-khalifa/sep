@@ -43,11 +43,10 @@ class RewardDataLoader(object):
 
         # Load the human stack-exchange-paired dataset for tuning the reward model.
         # train_dataset = load_dataset("lvwerra/stack-exchange-paired", data_dir="data/reward", split="train")
-        train_dataset = load_dataset(self.dataset_name, split="train")
+        train_dataset = load_dataset("json", data_files=self.dataset_name, split="train")
         if self.train_subset > 0:
             train_dataset = train_dataset.select(range(min(len(train_dataset), self.train_subset)))
-        # eval_dataset = load_dataset("lvwerra/stack-exchange-paired", data_dir="data/evaluation", split="train")
-        eval_dataset = load_dataset(self.dataset_name, split="train")
+        eval_dataset = load_dataset("json", data_files=self.dataset_name, split="train")
         if self.eval_subset > 0:
             eval_dataset = eval_dataset.select(range(min(len(eval_dataset), self.eval_subset)))
 

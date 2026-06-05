@@ -63,11 +63,16 @@ class Exp_Model:
             print(f'Finished Trial {trial+1}, Correct: {len(correct)}, Incorrect: {len(incorrect)}')
 
         os.makedirs(self.args.datasets_dir, exist_ok=True)
-        comparison_data_path = os.path.join(self.args.datasets_dir, "comparison_data.json")
+        comparison_data_path = os.path.join(self.args.datasets_dir, "comparison_data.jsonl")
 
         if comparison_data:
             with open(comparison_data_path, 'w') as f:
-                f.write(json.dumps(comparison_data))
+                for item in comparison_data:
+                    f.write(json.dumps(item) + "\n")
+
+        # train_reward_model and tuning_lm_with_rl both expect datasets_dir to be
+        # the path to the JSONL file, not the directory
+        self.args.datasets_dir = comparison_data_path
 
         # Train reward model
         train_reward_model(self.args)
@@ -75,7 +80,7 @@ class Exp_Model:
 
         # Optimize using reinforcement learning
         tuning_lm_with_rl(self.args)
-        merge_peft_adapter(model_name=self.args.output_dir+"step_saved", output_name="./saved_models/sep_model")
+        merge_peft_adapter(model_name=self.args.output_dir+"step_saved", output_name=self.args.sep_model_path)
 
 
     def test(self):
@@ -87,7 +92,7 @@ class Exp_Model:
         print("Loaded Test Agents.")
 
         model = AutoModelForCausalLMWithValueHead.from_pretrained(
-            "./saved_models/sep_model",
+            self.args.sep_model_path,
             load_in_4bit=True,
             device_map="auto"
         )

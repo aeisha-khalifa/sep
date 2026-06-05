@@ -175,15 +175,15 @@ Apple faced declining iPhone sales, but the company focused on promoting apps an
 The stock price experienced fluctuations after the earnings report, with significant after-hours gains.
 Apple's market weight rating was reiterated by Wells Fargo, with a target price of $120.00.
 
-Technical Context (as of 2016-07-26):
-- Price Balance (HLC3): close near intraday average -- neutral pressure
-- Volume Flow (OBV): rising -- buyers driving volume, accumulation signal
-- Trend (TEMA-9): price above moving average -- bullish momentum
-- Volatility (BB): price within bands at 72% of range -- upper half, mild positive bias
+Technical Context (as of 2016-07-25):
+- HLC3 (typical price: avg of high, low, close): close near intraday average — neutral pressure
+- PVT (volume weighted by % price change): rising — buyers driving volume, accumulation signal
+- TEMA-9 (triple-smoothed 9-day moving average): price above trend line — bullish momentum
+- BB (20-day bands ±2 standard deviations): price at 72% of band range — upper half, mild positive bias
 
 Price Movement: Positive
 
-Explanation: Apple reported strong Q3 2016 earnings, surpassing revenue expectations and delivering robust sales figures across its product lines. The technical indicators reinforced this positive sentiment: rising OBV confirmed strong buying volume, price trading above its TEMA trend line signalled bullish momentum, and the Bollinger Band position indicated the stock was in the upper half of its normal range. The combination of strong fundamentals and supportive price action signals points to a Positive price movement.
+Explanation: Apple reported strong Q3 2016 earnings, surpassing revenue expectations and delivering robust sales figures across its product lines. The technical indicators reinforced this positive sentiment: rising PVT confirmed strong buying volume and accumulation, the closing price trading above its TEMA-9 signalled bullish momentum, and the Bollinger Band position indicated the stock was in the upper half of its normal range. The combination of strong fundamentals and supportive price action signals points to a Positive price movement.
 
 Facts:
 2016-04-26
@@ -198,13 +198,13 @@ CEO Tim Cook attributed the challenges to strong macroeconomic headwinds, especi
 Despite the earnings miss, Apple announced plans to raise its dividend and return $50 billion more to shareholders.
 Apple's stock price experienced a decline of around 4.8% in after-hours trading following the earnings report.
 
-Technical Context (as of 2016-04-26):
-- Price Balance (HLC3): average of high/low/close is 1.20% below close -- intraday selling pressure
-- Volume Flow (OBV): falling -- sellers driving volume, distribution signal
-- Trend (TEMA-9): price below moving average -- bearish momentum
-- Volatility (BB): price at or below lower Bollinger Band -- statistically extreme negative move, potential reversal
+Technical Context (as of 2016-04-25):
+- HLC3 (typical price: avg of high, low, close): average of high/low/close is 1.20% below close — intraday selling pressure
+- PVT (volume weighted by % price change): falling — sellers driving volume, distribution signal
+- TEMA-9 (triple-smoothed 9-day moving average): price below trend line — bearish momentum
+- BB (20-day bands ±2 standard deviations): price at or below lower band — statistically extreme negative move, potential reversal
 
 Price Movement: Negative
 
-Explanation: Apple reported disappointing Q2 2016 earnings, missing both profit and revenue estimates, marking the first quarterly revenue decline in 13 years. The technical indicators aligned with this negative fundamental picture: falling OBV confirmed distribution selling pressure, price trading below its TEMA signalled bearish momentum, and the price touching the lower Bollinger Band indicated a statistically extreme downward move. The convergence of weak fundamentals and bearish technical signals collectively indicate a Negative price movement surrounding AAPL stock.
+Explanation: Apple reported disappointing Q2 2016 earnings, missing both profit and revenue estimates, marking the first quarterly revenue decline in 13 years. The technical indicators aligned with this negative fundamental picture: falling PVT confirmed distribution and selling pressure, price trading below its TEMA-9 signalled bearish momentum, and the price touching the lower Bollinger Band indicated a statistically extreme downward move. The convergence of weak fundamentals and bearish technical signals collectively indicate a Negative price movement surrounding AAPL stock.
 """

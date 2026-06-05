@@ -32,28 +32,22 @@ print(f"   Impl   : {impl:.6f}")
 print(f"   {PASS if ok else FAIL}")
 print()
 
-# ── 2. OBV — direction only (absolute value differs by initialisation offset)
-# Formula (Table 2): OBV_t += Volume if up, -= Volume if down, unchanged if flat
-# We use: obv_change = obv[-1] - obv[-2]  (direction only)
+# ── 2. PVT — direction of 1-day change
+# Formula: PVT_t = PVT_{t-1} + Volume_t * (Close_t - Close_{t-1}) / Close_{t-1}
 ind1 = compute_indicators(df, TEST_DATE)
-ind2 = compute_indicators(df, TEST_DATE2)
-obv_change_impl = ind1["obv"] - ind1["obv_prev"]
+pvt_change_impl = ind1["pvt"] - ind1["pvt_prev"]
 
-# Manual 1-day change for TEST_DATE
+# Manual 1-day PVT change for TEST_DATE
 c_today = close.iloc[-1]
 c_prev  = close.iloc[-2]
 v_today = vol.iloc[-1]
-if c_today > c_prev:   manual_change = v_today
-elif c_today < c_prev: manual_change = -v_today
-else:                  manual_change = 0.0
+manual_change = float(v_today * (c_today - c_prev) / c_prev)
 
-ok = (obv_change_impl > 0) == (manual_change > 0) and abs(obv_change_impl - manual_change) < 1.0
+ok = (pvt_change_impl > 0) == (manual_change > 0) and abs(pvt_change_impl - manual_change) < 1.0
 results.append(ok)
-print("2. OBV  —  direction of 1-day change (what we actually use)")
-print(f"   Manual change : {manual_change:,.0f}  ({'up' if manual_change>0 else 'down'})")
-print(f"   Impl change   : {obv_change_impl:,.0f}  ({'up' if obv_change_impl>0 else 'down'})")
-print(f"   Note: absolute OBV differs by a constant offset (init convention in ta library)")
-print(f"         but 1-day direction is identical — direction is all we use")
+print("2. PVT  —  direction of 1-day change (what we actually use)")
+print(f"   Manual change : {manual_change:,.2f}  ({'up' if manual_change>0 else 'down'})")
+print(f"   Impl change   : {pvt_change_impl:,.2f}  ({'up' if pvt_change_impl>0 else 'down'})")
 print(f"   {PASS if ok else FAIL}")
 print()
 
@@ -131,7 +125,7 @@ has_nan = any(pd.isna(v) for v in ind.values())
 ok = not has_nan
 results.append(ok)
 print(f"7. NaN guard — no NaN values in output")
-print(f"   Values: {ind}")
+print(f"   Keys: {list(ind.keys())}")
 print(f"   {PASS if ok else FAIL}")
 print()
 

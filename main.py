@@ -12,9 +12,15 @@ np.random.seed(fix_seed)
 parser = argparse.ArgumentParser(description='generating')
 
 # load data
-parser.add_argument("--price_dir", type=str, default="data/price/preprocessed/")
-parser.add_argument("--tweet_dir", type=str, default="data/tweet/raw/")
-parser.add_argument("--seq_len", type=int, default=5)
+parser.add_argument("--price_dir",  type=str, default="data/price/preprocessed/")
+parser.add_argument("--tweet_dir",  type=str, default="data/tweet/raw/")
+parser.add_argument("--ohlcv_dir",  type=str, default="data/ohlcv/")
+parser.add_argument("--cache_path", type=str, default="data/summary_cache.pkl")
+parser.add_argument("--seq_len",    type=int, default=5)
+
+# experimental condition
+parser.add_argument("--condition", type=str, default="A", choices=["A", "B"],
+                    help="A=tweets only, B=tweets+indicators")
 
 # supervised finetuning
 parser.add_argument("--wandb", action="store_true", default=False)
@@ -64,7 +70,8 @@ parser.add_argument('--target_kl', type=float, default=0.1, help="kl target for 
 parser.add_argument('--reward_baseline', type=float, default=0, help="a baseline value that is subtracted from the reward")
 parser.add_argument('--batched_gen', type=bool, default=True, help="whether to use the batched text gen")
 parser.add_argument('--save_freq', type=int, default=None, help="n steps to save the model")
-parser.add_argument('--output_dir', type=str, default="./saved_models/tuning_llama_rl_checkpoints/", help="directory to save the model")
+parser.add_argument('--output_dir',      type=str, default="./saved_models/tuning_llama_rl_checkpoints/", help="directory to save the model")
+parser.add_argument('--sep_model_path',  type=str, default="./saved_models/sep_model", help="path to save the final merged PPO model")
 parser.add_argument('--seed', type=int, default=0, help="the seed")
 
 # evaluation
@@ -72,6 +79,11 @@ parser.add_argument("--num_shots", type=int, default=4)
 parser.add_argument("--save_dir", type=str, default="results/")
 
 args = parser.parse_args()
+
+# Set indicator flags from condition
+args.use_indicators  = (args.condition == "B")
+args.indicators_only = False
+
 print('Args in experiment:')
 print(args)
 

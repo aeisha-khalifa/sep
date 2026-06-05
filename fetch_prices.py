@@ -1,8 +1,14 @@
 import yfinance as yf
 import os
 
-TICKERS = ["AAPL", "JPM", "XOM", "UNH", "AMZN", "BABA"]
-START = "2019-06-01"  # extra history for indicator warm-up
+TICKERS = [
+    "AAPL", "MSFT", "NVDA", "GOOG", "META",
+    "AMZN", "TSLA", "JPM",  "BAC",  "V",
+    "MA",   "UNH",  "JNJ",  "LLY",  "PFE",
+    "XOM",  "CVX",  "COP",  "WMT",  "KO",
+    "PG",   "CAT",  "HON",  "BABA", "TSM",
+]
+START = "2019-06-01"  # extra history for indicator warm-up (BB needs 20 days min)
 END = "2022-12-31"
 OUT_DIR = "data/ohlcv"
 

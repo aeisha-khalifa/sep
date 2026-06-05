@@ -104,10 +104,12 @@ class DataLoader:
                             summary_all += seq_date_str + "\n" + summary + "\n\n"
 
                 # --- technical indicators ---
+                # Use t-1 to avoid look-ahead bias: day t's close is part of the target label
                 tech_context = ""
                 if (self.use_indicators or self.indicators_only) and ohlcv_df is not None:
-                    indicators = compute_indicators(ohlcv_df, end_date_str)
-                    tech_context = format_technical_context(end_date_str, indicators)
+                    prev_date_str = (end_date - timedelta(days=1)).strftime("%Y-%m-%d")
+                    indicators = compute_indicators(ohlcv_df, prev_date_str)
+                    tech_context = format_technical_context(prev_date_str, indicators)
 
                 combined = (summary_all.rstrip() + ("\n\n" if summary_all and tech_context else "") + tech_context).strip()
 

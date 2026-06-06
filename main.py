@@ -1,8 +1,11 @@
 from exp.exp_model import Exp_Model
+from dotenv import load_dotenv
 import argparse
 import torch
 import numpy as np
 import random
+
+load_dotenv()
 
 fix_seed = 100
 random.seed(fix_seed)

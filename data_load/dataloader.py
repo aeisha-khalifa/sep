@@ -15,6 +15,7 @@ class DataLoader:
         self.use_indicators = getattr(args, "use_indicators", False)
         self.indicators_only = getattr(args, "indicators_only", False)
         self.cache_path = getattr(args, "cache_path", "data/summary_cache.pkl")
+        self.no_api = getattr(args, "no_api", False)
         self.summarizer = Summarizer()
         self._summary_cache = self._load_cache()
         self._ohlcv_cache = {}
@@ -97,6 +98,8 @@ class DataLoader:
 
                         if cache_key in self._summary_cache:
                             summary = self._summary_cache[cache_key]
+                        elif self.no_api:
+                            summary = None  # Part 2: never call API
                         else:
                             tweet_data = self.get_tweets(ticker, seq_date_str)
                             summary = self.summarizer.get_summary(ticker, tweet_data)

@@ -4,6 +4,8 @@
 import os
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
+!cd /content/sep && git pull origin final
+
 !mamba run -n sep python /content/sep/main.py \
     --part              2 \
     --condition         B \

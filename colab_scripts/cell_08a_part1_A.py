@@ -4,7 +4,23 @@
 # Saves to Drive: SFT data JSON, comparison JSONL, gpt_results.csv
 # NO local GPU needed. Run this before Part 2.
 
-import os
+import os, shutil
+
+# Pull latest code
+!cd /content/sep && git pull origin final
+
+# Create 5-stock price directory (copies only the 5 needed price files)
+stocks = {'AAPL', 'MSFT', 'GOOG', 'JPM', 'XOM'}
+src = '/content/drive/MyDrive/sn2/price/preprocessed/'
+dst = '/content/drive/MyDrive/sn2/price/5stocks/'
+os.makedirs(dst, exist_ok=True)
+for f in os.listdir(src):
+    if f[:-4] in stocks and not os.path.exists(os.path.join(dst, f)):
+        shutil.copy(os.path.join(src, f), dst)
+        print(f"Copied {f}")
+print(f"5stocks dir ready: {os.listdir(dst)}")
+
+# Create output directories
 os.makedirs("/content/drive/MyDrive/sep_training/models_A", exist_ok=True)
 os.makedirs("/content/drive/MyDrive/sep_training/results_5", exist_ok=True)
 

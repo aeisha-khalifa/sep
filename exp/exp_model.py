@@ -25,6 +25,11 @@ class Exp_Model:
         Saves: SFT data JSON, comparison JSONL, GPT-3.5 test results CSV.
         No local GPU needed."""
 
+        # Clear SFT data file so re-runs don't accumulate duplicates
+        if os.path.exists(self.args.data_path):
+            os.remove(self.args.data_path)
+            print(f"Cleared existing SFT data file: {self.args.data_path}")
+
         # ── Training data collection ──────────────────────────────────
         print("Loading Train Agents...")
         data = self.dataloader.load(flag="train")
@@ -97,6 +102,11 @@ class Exp_Model:
         Reads SFT data JSON and comparison JSONL from Drive. Zero API calls."""
 
         comparison_data_path = os.path.join(self.args.datasets_dir, "comparison_data.jsonl")
+        if not os.path.exists(comparison_data_path):
+            raise FileNotFoundError(
+                f"comparison_data.jsonl not found at {comparison_data_path}. "
+                "Run Part 1 first and make sure at least one agent self-corrected."
+            )
         self.args.datasets_dir = comparison_data_path
 
         supervised_finetune(self.args)

@@ -90,6 +90,8 @@ args = parser.parse_args()
 # Set indicator flags from condition
 args.use_indicators  = (args.condition == "B")
 args.indicators_only = False
+# Part 2 never makes OpenAI API calls — all data comes from cache/Drive
+args.no_api = (args.part == "2")
 
 print('Args in experiment:')
 print(args)

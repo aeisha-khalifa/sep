@@ -19,7 +19,7 @@ class Summarizer:
                                     examples = self.summarize_examples,
                                     tweets = "\n".join(tweets))
 
-            while len(self.enc.encode(prompt)) > 16385:
+            while len(self.enc.encode(prompt)) > 16000:  # buffer for chat format overhead
                 tweets = tweets[:-1]
                 prompt = self.summarize_prompt.format(
                                         ticker = ticker,

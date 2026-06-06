@@ -81,6 +81,10 @@ parser.add_argument('--seed', type=int, default=0, help="the seed")
 parser.add_argument("--num_shots", type=int, default=4)
 parser.add_argument("--save_dir", type=str, default="results/")
 
+# pipeline split
+parser.add_argument("--part", type=str, default="all", choices=["1", "2", "all"],
+                    help="1=collect data+GPT test baseline, 2=SFT+RL+Vicuna test, all=full pipeline")
+
 args = parser.parse_args()
 
 # Set indicator flags from condition
@@ -91,5 +95,13 @@ print('Args in experiment:')
 print(args)
 
 exp_model = Exp_Model(args)
-exp_model.train()
-exp_model.test()
+
+if args.part == "1":
+    exp_model.collect_data()
+elif args.part == "2":
+    exp_model.train_local()
+    exp_model.test()
+else:
+    exp_model.collect_data()
+    exp_model.train_local()
+    exp_model.test()

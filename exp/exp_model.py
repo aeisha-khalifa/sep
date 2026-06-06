@@ -25,10 +25,15 @@ class Exp_Model:
         Saves: SFT data JSON, comparison JSONL, GPT-3.5 test results CSV.
         No local GPU needed."""
 
-        # Clear SFT data file so re-runs don't accumulate duplicates
-        if os.path.exists(self.args.data_path):
-            os.remove(self.args.data_path)
-            print(f"Cleared existing SFT data file: {self.args.data_path}")
+        skip_sft_write = getattr(self.args, 'skip_sft_write', False)
+
+        if skip_sft_write:
+            print(f"--skip_sft_write: preserving existing {self.args.data_path}")
+        else:
+            # Clear SFT data file so re-runs don't accumulate duplicates
+            if os.path.exists(self.args.data_path):
+                os.remove(self.args.data_path)
+                print(f"Cleared existing SFT data file: {self.args.data_path}")
 
         # ── Training data collection ──────────────────────────────────
         print("Loading Train Agents...")
@@ -42,7 +47,7 @@ class Exp_Model:
 
         for agent in agents:
             agent.run()
-            if agent.is_correct():
+            if agent.is_correct() and not skip_sft_write:
                 prompt = agent._build_agent_prompt()
                 response = agent.scratchpad.split('Price Movement: ')[-1]
                 sample = {"instruction": prompt, "input": "", "output": response}

@@ -84,6 +84,8 @@ parser.add_argument("--save_dir", type=str, default="results/")
 # pipeline split
 parser.add_argument("--part", type=str, default="all", choices=["1", "2", "all"],
                     help="1=collect data+GPT test baseline, 2=SFT+RL+Vicuna test, all=full pipeline")
+parser.add_argument("--skip_sft_write", action="store_true", default=False,
+                    help="Skip deleting/rewriting sft_data file; still runs agents for comparison_data and GPT baseline")
 
 args = parser.parse_args()
 

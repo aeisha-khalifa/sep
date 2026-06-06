@@ -5,13 +5,7 @@ sys.path.append('/content/sep')
 import yfinance as yf
 import os
 
-TICKERS = [
-    "AAPL", "MSFT", "NVDA", "GOOG", "META",
-    "AMZN", "TSLA", "JPM",  "BAC",  "V",
-    "MA",   "UNH",  "JNJ",  "LLY",  "PFE",
-    "XOM",  "CVX",  "COP",  "WMT",  "KO",
-    "PG",   "CAT",  "HON",  "BABA", "TSM",
-]
+TICKERS = ["AAPL", "MSFT", "GOOG", "JPM", "XOM"]
 OUT_DIR = "/content/ohlcv"
 os.makedirs(OUT_DIR, exist_ok=True)
 

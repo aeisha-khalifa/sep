@@ -8,6 +8,7 @@ os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 !mamba run -n sep python /content/sep/main.py \
     --part              2 \
+    --max_trading_days  252 \
     --condition         B \
     --price_dir         /content/drive/MyDrive/sn2/price/5stocks/ \
     --tweet_dir         /content/drive/MyDrive/sn2/tweet/raw/ \

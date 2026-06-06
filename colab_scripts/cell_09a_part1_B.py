@@ -19,6 +19,7 @@ os.makedirs("/content/drive/MyDrive/sep_training/results_5", exist_ok=True)
 
 !mamba run -n sep python /content/sep/main.py \
     --part              1 \
+    --max_trading_days  252 \
     --condition         B \
     --price_dir         /content/drive/MyDrive/sn2/price/5stocks/ \
     --tweet_dir         /content/drive/MyDrive/sn2/tweet/raw/ \

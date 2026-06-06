@@ -16,6 +16,7 @@ class DataLoader:
         self.indicators_only = getattr(args, "indicators_only", False)
         self.cache_path = getattr(args, "cache_path", "data/summary_cache.pkl")
         self.no_api = getattr(args, "no_api", False)
+        self.max_trading_days = getattr(args, "max_trading_days", 0)
         self.summarizer = Summarizer()
         self._summary_cache = self._load_cache()
         self._ohlcv_cache = {}
@@ -76,6 +77,8 @@ class DataLoader:
             ticker = file[:-4]
             ohlcv_df = self._get_ohlcv(ticker)
 
+            if self.max_trading_days and self.max_trading_days < len(ordered_price_data):
+                ordered_price_data = ordered_price_data[:self.max_trading_days]
             tes_idx = round(len(ordered_price_data) * 0.8)
             end_idx = len(ordered_price_data)
             data_range = range(tes_idx) if flag == "train" else range(tes_idx, end_idx)

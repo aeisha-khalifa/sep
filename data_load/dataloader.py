@@ -67,7 +67,7 @@ class DataLoader:
 
     def load(self, flag):
         data = pd.DataFrame()
-        cache_dirty = False
+        ticker_cache_dirty = False
 
         for file in os.listdir(self.price_dir):
             price_path = os.path.join(self.price_dir, file)
@@ -78,6 +78,8 @@ class DataLoader:
             tes_idx = round(len(ordered_price_data) * 0.8)
             end_idx = len(ordered_price_data)
             data_range = range(tes_idx) if flag == "train" else range(tes_idx, end_idx)
+
+            ticker_cache_dirty = False
 
             for idx in data_range:
                 end_date_str = ordered_price_data[idx, 0]
@@ -98,7 +100,7 @@ class DataLoader:
                             tweet_data = self.get_tweets(ticker, seq_date_str)
                             summary = self.summarizer.get_summary(ticker, tweet_data)
                             self._summary_cache[cache_key] = summary
-                            cache_dirty = True
+                            ticker_cache_dirty = True
 
                         if summary and self.summarizer.is_informative(summary):
                             summary_all += seq_date_str + "\n" + summary + "\n\n"
@@ -121,7 +123,9 @@ class DataLoader:
                         "target": target
                     }])], ignore_index=True)
 
-        if cache_dirty:
-            self._save_cache()
+            # Save cache after each ticker so a crash doesn't lose all progress
+            if ticker_cache_dirty:
+                self._save_cache()
+                print(f"[cache] saved after {ticker}")
 
         return data

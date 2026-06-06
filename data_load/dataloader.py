@@ -80,6 +80,7 @@ class DataLoader:
             data_range = range(tes_idx) if flag == "train" else range(tes_idx, end_idx)
 
             ticker_cache_dirty = False
+            calls_since_save = 0
 
             for idx in data_range:
                 end_date_str = ordered_price_data[idx, 0]
@@ -101,6 +102,11 @@ class DataLoader:
                             summary = self.summarizer.get_summary(ticker, tweet_data)
                             self._summary_cache[cache_key] = summary
                             ticker_cache_dirty = True
+                            calls_since_save += 1
+                            # Save every 50 new API calls so a crash loses at most 50 calls
+                            if calls_since_save >= 50:
+                                self._save_cache()
+                                calls_since_save = 0
 
                         if summary and self.summarizer.is_informative(summary):
                             summary_all += seq_date_str + "\n" + summary + "\n\n"

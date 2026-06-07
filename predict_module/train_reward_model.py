@@ -193,17 +193,12 @@ def train_reward_model(args):
             return batch
 
 
-    # Define the metric that we'll use for validation.
-    accuracy = evaluate.load("accuracy")
-
-
     def compute_metrics(eval_pred):
         predictions, _ = eval_pred
-        # Here, predictions is rewards_j and rewards_k.
-        # We want to see how much of the time rewards_j > rewards_k.
+        # rewards_j > rewards_k means correct preference ordering
         predictions = np.argmax(predictions, axis=0)
         labels = np.zeros(predictions.shape)
-        return accuracy.compute(predictions=predictions, references=labels)
+        return {"accuracy": float((predictions == labels).mean())}
 
 
     class RewardTrainer(Trainer):

@@ -98,7 +98,7 @@ def tuning_lm_with_rl(args):
 
         # load imdb with datasets
         # ds = load_dataset(dataset_name, data_dir="data/rl", split="train")
-        ds = load_dataset(dataset_name, split="train")
+        ds = load_dataset("json", data_files=dataset_name, split="train")
         original_columns = ds.column_names
         num_proc = 1 #24
 

@@ -69,10 +69,10 @@ def supervised_finetune(args):
     # tokenizer.padding_side = "left"  # Allow batched inference
 
     data = load_dataset("json", data_files=DATA_PATH)
-    val_set_size = VAL_PCT * len(data)
+    val_set_size = int(VAL_PCT * len(data["train"]))
 
-    now_max_steps = max(
-        (len(data["train"]) - val_set_size) // BATCH_SIZE * EPOCHS, EPOCHS)
+    now_max_steps = int(max(
+        (len(data["train"]) - val_set_size) // BATCH_SIZE * EPOCHS, EPOCHS))
     if args.resume_from_supervised_checkpoint:
         # Check the available weights and load them
         checkpoint_name = os.path.join(
